@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paul Lemaron | Instructional Design Portfolio</title>
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #eef2f7;
+            color: #0e3b44;
+            line-height: 1.65;
+            padding: 1.5rem 1rem;
+        }
+        .portfolio-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.18);
+            overflow: hidden;
+        }
+
+        /* ── NAVIGATION ── */
+        .nav-bar {
+            background: #0f2b3d;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+            border-bottom: 3px solid #2b9c6c;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-bar .brand {
+            color: #9bc2d4;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            align-items: center;
+        }
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: #cbdbe2;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-weight: 500;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .nav-links button:hover {
+            background: #1e3a4b;
+            color: white;
+        }
+        .nav-links button.active {
+            background: #2b9c6c;
+            color: white;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .nav-actions .download-btn {
+            background: #2b9c6c;
+            border: none;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-family: inherit;
+        }
+        .nav-actions .download-btn:hover {
+            background: #1f7a52;
+        }
+
+        /* ── PAGE CONTAINER ── */
+        .page-container {
+            padding: 1.8rem 2rem 2.5rem;
+        }
+        .page {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(18px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header-block {
+            background: #0f2b3d;
+            margin: -1.8rem -2rem 2rem -2rem;
+            padding: 1.8rem 2rem;
+            border-radius: 0;
+        }
+        .page-header-block .badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            color: #9bc2d4;
+            margin-bottom: 0.3rem;
+        }
+        .page-header-block h2 {
+            font-size: calc(1.4rem + 0.4vw);
+            font-weight: 700;
+            color: white;
+            margin: 0.25rem 0 0.3rem;
+            line-height: 1.2;
+        }
+        .page-header-block .sub {
+            font-size: calc(0.8rem + 0.15vw);
+            color: #d0e8f0;
+            border-left: 3px solid #2b9c6c;
+            padding-left: 1rem;
+        }
+
+        /* ── CARDS ── */
+        .card-light {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #e2edf2;
+        }
+        .card-blue {
+            background: #eef9ff;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border-left: 5px solid #2b9c6c;
+        }
+        .card-warm {
+            background: #fef9e3;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border-left: 5px solid #e6a017;
+        }
+        .card-green {
+            background: #e8f5e9;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border-left: 5px solid #2b9c6c;
+        }
+        .project-card {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid #e2edf2;
+            transition: 0.15s;
+            margin-bottom: 1.5rem;
+        }
+        .project-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .project-card .icon {
+            font-size: 2.5rem;
+        }
+        .project-card h3 {
+            color: #0f2b3d;
+            font-size: 1.3rem;
+            margin: 0.3rem 0 0.2rem;
+        }
+        .project-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin: 0.5rem 0;
+        }
+        .project-card .tags span {
+            background: #eef2fa;
+            border-radius: 60px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+        }
+        .project-card .tags .highlight {
+            background: #2b9c6c20;
+            color: #1a6e4a;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin: 1.2rem 0;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+        .pill {
+            background: #eef2fa;
+            border-radius: 60px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin: 0.2rem 0.2rem 0 0;
+        }
+        .pill-green {
+            background: #2b9c6c20;
+            color: #1a6e4a;
+        }
+        hr.divider {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 2px dotted #cde0e9;
+        }
+        .footer-meta {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6f8f9e;
+            margin-top: 1.8rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2edf2;
+        }
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 1rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 700px) {
+            body { padding: 0.8rem; }
+            .nav-bar {
+                padding: 0.6rem 1rem;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.4rem;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 0.2rem;
+            }
+            .nav-links button {
+                font-size: 0.6rem;
+                padding: 0.25rem 0.5rem;
+            }
+            .page-container { padding: 1rem 1rem 1.5rem; }
+            .page-header-block {
+                margin: -1rem -1rem 1.5rem -1rem;
+                padding: 1.2rem 1rem;
+            }
+            .page-header-block h2 { font-size: 1.3rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .nav-actions .download-btn { font-size: 0.6rem; padding: 0.25rem 0.8rem; }
+        }
+        @media print {
+            .nav-bar { display: none !important; }
+            .page { display: block !important; page-break-after: always; animation: none !important; }
+            .page:last-child { page-break-after: avoid; }
+            body { background: white; padding: 0; }
+            .portfolio-wrapper { border-radius: 0; box-shadow: none; }
+            .page-container { padding: 1.5rem; }
+            .page-header-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .card-blue, .card-warm, .card-light, .project-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="portfolio-wrapper">
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav-bar">
+        <span class="brand">📘 Paul Lemaron · Portfolio</span>
+        <div class="nav-links" id="navLinks">
+            <button class="active" data-page="0">About</button>
+            <button data-page="1">Project 1</button>
+            <button data-page="2">Project 2</button>
+            <button data-page="3">Project 3</button>
+            <button data-page="4">Project 4</button>
+            <button data-page="5">Project 5</button>
+            <button data-page="6">Skills</button>
+        </div>
+        <div class="nav-actions">
+            <button class="download-btn" onclick="window.print()">⬇ Download PDF</button>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE CONTAINER ===== -->
+    <div class="page-container">
+
+        <!-- ===== PAGE 0: ABOUT ===== -->
+        <div class="page active" data-index="0">
+            <div style="text-align:center; padding: 1.5rem 0 1rem 0;">
+                <div style="font-size:0.8rem; text-transform:uppercase; letter-spacing:3px; color:#2b9c6c; margin-bottom:0.5rem;">Instructional Design Portfolio</div>
+                <h1 style="font-size:calc(2.2rem + 0.8vw); font-weight:700; color:#0f2b3d; margin:0.5rem 0;">Paul Lemaron</h1>
+                <div style="width:60px; height:4px; background:#2b9c6c; margin:1rem auto;"></div>
+                <p style="font-size:1.1rem; color:#3a5b72;">Learning & Development · Instructional Design · EdTech</p>
+            </div>
+
+            <div style="background:#f8fafc; border-radius:24px; padding:1.5rem; margin:1.5rem 0; border:1px solid #e2edf2;">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:1rem;">
+                    <div><strong>📧 Email:</strong> lemaronp@gmail.com</div>
+                    <div><strong>📞 Phone:</strong> +254726645611</div>
+                    <div><strong>📍 Location:</strong> Kenya</div>
+                    <div><strong>🎓 M.A.</strong> Computing in Education, American University of Beirut.</div>
+                </div>
+            </div>
+
+            <div class="card-blue" style="margin:1.5rem 0;">
+                <h3 style="color:#0f2b3d; margin:0 0 0.5rem 0;">👋 About Me</h3>
+                <p>Detail-oriented Instructional Designer and recent Master's graduate (2025) with extensive experience in developing learner-centered, accessible, and engaging digital learning experiences. Expert in managing LMS platforms, coordinating with Subject Matter Experts (SMEs), and leveraging AI-enabled tools to enhance instructional quality. Proven ability to work in multicultural environments, applying Project-Based Learning (PBL) and data-driven insights to foster leadership and professional development.</p>
+            </div>
+
+            <div class="grid-2">
+                <div style="background:#f8fafc; border-radius:16px; padding:1rem; text-align:center; border:1px solid #e2edf2;">
+                    <div style="font-size:2.5rem;">🧠</div>
+                    <div style="font-weight:600; color:#0f2b3d;">ADDIE Framework</div>
+                    <div style="font-size:0.8rem; color:#3a5b72;">Analysis → Design → Development → Implementation → Evaluation</div>
+                </div>
+                
+                <div style="background:#f8fafc; border-radius:16px; padding:1rem; text-align:center; border:1px solid #e2edf2;">
+                    <div style="font-size:2.5rem;">♿</div>
+                    <div style="font-weight:600; color:#0f2b3d;">Accessibility</div>
+                    <div style="font-size:0.8rem; color:#3a5b72;">WCAG 2.1 · Screen-reader ready</div>
+                </div>
+
+            </div>
+
+            <div class="footer-meta">Paul Lemaron · Instructional Design Portfolio</div>
+        </div>
+
+        <!-- ===== PAGE 1: PROJECT 1 - PERFORMANCE MANAGEMENT ===== -->
+        <div class="page" data-index="1">
+            <div class="page-header-block">
+                <div class="badge">Project 1 · Tenwek Hospital</div>
+                <h2>Performance Management Interactive Module</h2>
+                <div class="sub">12 modules · 1,500+ staff · Canvas LMS · Fully responsive</div>
+            </div>
+
+            <div class="project-card">
+                <div class="icon">📚</div>
+                <h3>Project Overview</h3>
+                <p>Tenwek Hospital, a 300-bed faith-based hospital in Kenya, was implementing a revamped Performance Management System. Staff across all levels needed to understand their roles, responsibilities, and the performance cycle. I designed and developed a self-paced, interactive e-learning module serving as the primary training resource for all 1,500+ staff members.</p>
+                <div class="tags">
+                    <span class="highlight">Instructional Design</span>
+                    <span>Canvas LMS</span>
+                    <span>ADDIE</span>
+                    <span>Responsive</span>
+                    <span>Knowledge Check</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card-light">
+                    <strong>🎯 My Role</strong>
+                    <ul style="margin:0.5rem 0 0 1.2rem;">
+                        <li>Lead Instructional Designer</li>
+                        <li>Content Developer</li>
+                        <li>Multimedia Producer</li>
+                        <li>Assessment Designer</li>
+                    </ul>
+                </div>
+                <div class="card-light">
+                    <strong>🛠️ Tools & Methods</strong>
+                    <ul style="margin:0.5rem 0 0 1.2rem;">
+                        <li>Articulate Rise 360</li>
+                        <li>HTML5 / CSS3 / JavaScript</li>
+                        <li>Canvas LMS</li>
+                        <li>Canva (graphics)</li>
+                        <li>ChatGPT (content refinement)</li>
+                        <li>ADDIE Framework</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-green">
+                <strong>📊 Outcomes:</strong> 12 interactive modules covering the entire performance management cycle · Self-paced learning accessible on desktop, tablet, and mobile · Integrated knowledge check with 80% passing threshold · Deployed in Canvas LMS with positive HR feedback.
+            </div>
+            <h3><a href="performance_management.html" target="_blank" rel="noopener noreferrer">Read More about the Performance Management Course</a></h3>
+            <div class="footer-meta">The Hospital · Performance with Purpose</div>
+        </div>
+
+        <!-- ===== PAGE 2: PROJECT 2 - LAUNDRY TRAINING ===== -->
+        <div class="page" data-index="2">
+            <div class="page-header-block">
+                <div class="badge">Project 2 · Tenwek Hospital</div>
+                <h2>Hospital Laundry Training Program</h2>
+                <div class="sub">15 modules · Practical labs · Video scripts · 1,500+ staff</div>
+            </div>
+
+            <div class="project-card">
+                <div class="icon">🧺</div>
+                <h3>Project Overview</h3>
+                <p>This comprehensive training program was designed to equip every laundry staff member at Tenwek Hospital with the knowledge and skills to ensure patient safety through proper linen management. The program covers 15 modules spanning the entire laundry workflow: from receiving and segregation, through barrier washer operation, main washing, drying, finishing, dispatch, and quality management.</p>
+                <div class="tags">
+                    <span class="highlight">Instructional Design</span>
+                    <span>Project-Based Learning</span>
+                    <span>Scenario-Based</span>
+                    <span>Video Scripts</span>
+                    <span>Mobile-First</span>
+                </div>
+            </div>
+
+            <div style="overflow-x:auto; margin:1rem 0;">
+                <table style="width:100%; border-collapse:collapse; border-radius:16px; overflow:hidden; border:1px solid #e2edf2; font-size:0.85rem;">
+                    <thead style="background:#0f2b3d; color:white;">
+                        <tr><th style="padding:0.6rem;">Phase</th><th style="padding:0.6rem;">Modules</th><th style="padding:0.6rem;">Practical Labs</th></tr>
+                    </thead>
+                    <tbody style="background:#f8fafc;">
+                        <tr><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Receiving</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Segregation, Red Bag Protocol</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Sorting Sprint, Leak Response</td></tr>
+                        <tr><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Barrier Washer</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Barrier Washer, Chemical Safety</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Barrier Washer Simulation</td></tr>
+                        <tr><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Main Washing</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Washing by Linen Type, Disinfection Science</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">The 90°C Challenge</td></tr>
+                        <tr><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Drying</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Dryer Programs, Lint Trap Safety</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Lint Trap Audit</td></tr>
+                        <tr><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Finishing</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Flat Ironing, Steam Press</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Ironing Techniques</td></tr>
+                        <tr><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Dispatch</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Folding, Dispatch & Documentation</td><td style="padding:0.6rem; border-bottom:1px solid #e2edf2;">Dispatch Simulation</td></tr>
+                        <tr><td style="padding:0.6rem;">Quality</td><td style="padding:0.6rem;">KPIs, Safety, Audits</td><td style="padding:0.6rem;">Final Assessment</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-warm">
+                <strong>🎬 Video Production Guide:</strong> Developed 18 video scripts with detailed production specifications including duration, key shots, script outlines, props needed, and filming style for each module. Total video duration: ~85 minutes.
+            </div>
+
+            <div class="card-blue">
+                <strong>🎯 Learning Approach:</strong> Blended behaviorist strategies (fact recall) with constructivist scenarios (real-world decision-making) through 14 practical labs and project-based assessments like the "From Ward to Ward" trace project and "The 90°C Challenge."
+            <a href="laundtraining.html" target="_blank" rel="noopener noreferrer">Read More on the program development details.</a>
+            </div>
+            <div class="footer-meta">Tenwek Hospital · CTC Laundry Training Program</div>
+        </div>
+
+        <!-- ===== PAGE 3: PROJECT 3 - HEALTHCARE COMMUNICATION INFOGRAPHICS ===== -->
+        <div class="page" data-index="3">
+            <div class="page-header-block">
+                <div class="badge">Project 3 · Healthcare Communication</div>
+                <h2>Healthcare Communication Infographics</h2>
+                <div class="sub">Visual learning assets for healthcare professionals</div>
+            </div>
+
+            <div class="project-card">
+                <div class="icon">📊</div>
+                <h3>Project Overview</h3>
+                <p>This project involved the design and development of a series of infographics and visual learning assets for a healthcare communication course. The infographics serve as visual summaries of key concepts, making complex healthcare communication topics accessible and engaging for healthcare professionals at various levels.</p>
+                <div class="tags">
+                    <span class="highlight">Visual Design</span>
+                    <span>Canva</span>
+                    <span>Infographics</span>
+                    <span>Healthcare Communication</span>
+                    <span>Learning Assets</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card-light">
+                    <strong>📋 Infographic Topics</strong>
+                    <ul style="margin:0.5rem 0 0 1.2rem;">
+                        <li>Effective Patient Communication</li>
+                        <li>Interprofessional Collaboration</li>
+                        <li>Healthcare Team Dynamics</li>
+                        <li>Conflict Resolution in Healthcare</li>
+                        <li>Patient-Centered Care Principles</li>
+                        <li>Communication Barriers & Solutions</li>
+                    </ul>
+                </div>
+                <div class="card-light">
+                    <strong>🛠️ Design Approach</strong>
+                    <ul style="margin:0.5rem 0 0 1.2rem;">
+                        <li>Canva for visual design</li>
+                        <li>Color-coded categorization</li>
+                        <li>Icon-based visual cues</li>
+                        <li>Mobile-friendly layouts</li>
+                        <li>Accessibility considerations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-green">
+                <strong>📌 Key Feature:</strong> Each infographic is designed as a standalone reference asset that can be used in multiple contexts: training sessions, reference materials, and digital learning modules. The visual approach reduces cognitive load and improves retention of key communication concepts.
+            </div>
+
+            <div style="text-align:center; margin:1.5rem 0; padding:1rem; background:#f8fafc; border-radius:20px; border:1px dashed #2b9c6c;">
+                <p style="color:#3a5b72;"> <a href="https://drive.google.com/drive/folders/118XHb2r8RJcS3ugBpJUfD_E6V-3kvvx8?usp=sharing" target="_blank" rel="noopener noreferrer">📎 Inforgraphics Link Here</a> | Full PowerPoint deck with 12+ infographics</p> 
+            </div>
+            <div class="footer-meta">Healthcare Communication · Visual Learning Assets</div>
+        </div>
+
+        <!-- ===== PAGE 4: PROJECT 4 - ADDIE MODEL DEMONSTRATION ===== -->
+        <div class="page" data-index="4">
+            <div class="page-header-block">
+                <div class="badge">Project 4 · Instructional Design Concept</div>
+                <h2>ADDIE Model Demonstration</h2>
+                <div class="sub">Applying the ADDIE framework to instructional design</div>
+            </div>
+
+            <div class="project-card">
+                <div class="icon">🧠</div>
+                <h3>Project Overview</h3>
+                <p>This project demonstrates my comprehensive understanding and application of the ADDIE (Analysis, Design, Development, Implementation, Evaluation) instructional design model. The demonstration shows how each phase of the model informs and shapes the creation of effective learning experiences, using a real-world case study.</p>
+                <div class="tags">
+                    <span class="highlight">ADDIE</span>
+                    <span>Instructional Design</span>
+                    <span>Case Study</span>
+                    <span>Needs Analysis</span>
+                    <span>Evaluation</span>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1rem; margin:1.5rem 0;">
+                <div style="background:#f8fafc; border-radius:20px; padding:1.2rem; border:1px solid #e2edf2; text-align:center;">
+                    <div style="background:#2b9c6c; color:white; border-radius:60px; width:40px; height:40px; line-height:40px; margin:0 auto 0.5rem; font-weight:700;">1</div>
+                    <h4 style="color:#0f2b3d;">Analysis</h4>
+                    <p style="font-size:0.8rem; color:#3a5b72;">Needs assessment · Learner analysis · Context analysis</p>
+                </div>
+                <div style="background:#f8fafc; border-radius:20px; padding:1.2rem; border:1px solid #e2edf2; text-align:center;">
+                    <div style="background:#2b9c6c; color:white; border-radius:60px; width:40px; height:40px; line-height:40px; margin:0 auto 0.5rem; font-weight:700;">2</div>
+                    <h4 style="color:#0f2b3d;">Design</h4>
+                    <p style="font-size:0.8rem; color:#3a5b72;">Learning objectives · Storyboarding · Assessment design</p>
+                </div>
+                <div style="background:#f8fafc; border-radius:20px; padding:1.2rem; border:1px solid #e2edf2; text-align:center;">
+                    <div style="background:#2b9c6c; color:white; border-radius:60px; width:40px; height:40px; line-height:40px; margin:0 auto 0.5rem; font-weight:700;">3</div>
+                    <h4 style="color:#0f2b3d;">Development</h4>
+                    <p style="font-size:0.8rem; color:#3a5b72;">Content creation · Multimedia · Prototyping</p>
+                </div>
+                <div style="background:#f8fafc; border-radius:20px; padding:1.2rem; border:1px solid #e2edf2; text-align:center;">
+                    <div style="background:#2b9c6c; color:white; border-radius:60px; width:40px; height:40px; line-height:40px; margin:0 auto 0.5rem; font-weight:700;">4</div>
+                    <h4 style="color:#0f2b3d;">Implementation</h4>
+                    <p style="font-size:0.8rem; color:#3a5b72;">LMS deployment · Training · Rollout support</p>
+                </div>
+                <div style="background:#f8fafc; border-radius:20px; padding:1.2rem; border:1px solid #e2edf2; text-align:center;">
+                    <div style="background:#2b9c6c; color:white; border-radius:60px; width:40px; height:40px; line-height:40px; margin:0 auto 0.5rem; font-weight:700;">5</div>
+                    <h4 style="color:#0f2b3d;">Evaluation</h4>
+                    <p style="font-size:0.8rem; color:#3a5b72;">Formative & summative · Feedback · Iteration</p>
+                </div>
+            </div>
+
+            <div class="card-blue">
+                <strong>📌 Key Takeaway:</strong> The ADDIE model provides a systematic, iterative approach to instructional design that ensures learning solutions are effective, efficient, and aligned with learner needs. This demonstration shows how each phase builds on the previous to create a comprehensive learning experience.
+            </div>
+
+            <div class="card-light">
+                <strong>🔍 The Application:</strong> The ADDIE process was applied to the The Hospital Laundry Training project:
+                <ul style="margin:0.5rem 0 0 1.2rem;">
+                    <li><strong>Analysis:</strong> Identified training gap for 1,500+ staff; needs analysis with hospital management</li>
+                    <li><strong>Design:</strong> 15 modules mapped to workflow; storyboarding; visual mockups</li>
+                    <li><strong>Development:</strong> Interactive HTML/CSS/JS content; Canva graphics; video scripts</li>
+                    <li><strong>Implementation:</strong> Canvas LMS deployment; staff onboarding support</li>
+                    <li><strong>Evaluation:</strong> Knowledge checks; practical labs; feedback mechanism</li>
+                </ul>
+
+                <h1>ADDIE Model Templates I use</h1>
+                <a href="https://drive.google.com/drive/folders/1h6VFCtyNjmZ_ikyP-vIqRVPBXEgcovaw?usp=sharing" target="_blank" rel="noopener noreferrer">Access the ADDIE Model Templates I use for my courses Development here.</a>
+            </div>
+
+        
+            <div class="footer-meta">ADDIE Model · Instructional Design Concept</div>
+        </div>
+
+        <!-- ===== PAGE 5: PROJECT 5 - DATA SCIENCE BOOTCAMP (MASTER'S PROJECT) ===== -->
+        <div class="page" data-index="5">
+            <div class="page-header-block">
+                <div class="badge">Project 5 · Master's Thesis · American University of Beirut</div>
+                <h2>Data Science Bootcamp: Bridging the Skills Gap in Kenya</h2>
+                <div class="sub">Project-Based Learning · Masterstudy LMS · Google Colab · GitHub</div>
+            </div>
+
+            <div class="project-card">
+                <div class="icon">📊</div>
+                <h3>Project Overview</h3>
+                <p>This project is my Master's thesis at the American University of Beirut (AUB), addressing Kenya's persistent data science skills gap. The project involved designing, developing, and implementing a project-based online data science bootcamp to bridge the disconnect between theoretical university curricula and the practical competencies demanded by industry.<p style="background:#f0f7fa; padding:0.8rem; border-radius:12px; margin:0.5rem 0; font-style:italic;">"Kenya's rapidly expanding digital economy is hampered by a persistent skills gap, particularly in data science, limiting innovation in critical sectors like agriculture and healthcare." — Thesis Abstract</p></p>
+                <div class="tags">
+                    <span class="highlight">Instructional Design</span>
+                    <span>Project-Based Learning</span>
+                    <span>Masterstudy LMS</span>
+                    <span>Data Science</span>
+                    <span>Google Colab</span>
+                    <span>GitHub</span>
+                    <span>Python</span>
+                    <span>Machine Learning</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card-light">
+                    <strong>🎯 My Role</strong>
+                    <ul style="margin:0.5rem 0 0 1.2rem;">
+                        <li>Lead Instructional Designer & Developer</li>
+                        <li>Curriculum Designer</li>
+                        <li>LMS Administrator (Masterstudy)</li>
+                        <li>Content Creator</li>
+                        <li>Assessment Designer</li>
+                    </ul>
+                </div>
+                <div class="card-light">
+                    <strong>🛠️ Tools & Technologies</strong>
+                    <ul style="margin:0.5rem 0 0 1.2rem;">
+                        <li>Masterstudy Learning Management System</li>
+                        <li>Google Colab (interactive coding)</li>
+                        <li>GitHub (version control, collaboration)</li>
+                        <li>Python, NumPy, Pandas</li>
+                        <li>Data Visualization libraries</li>
+                        <li>Machine Learning frameworks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-blue">
+                <strong>📚 Pedagogical Framework:</strong> The bootcamp is centered on <strong>Project-Based Learning (PBL)</strong>, utilizing the case-study method to teach key data science skills of creating, connecting, and computing. The curriculum guides learners through Python, NumPy, Pandas, data visualization, and machine learning, culminating in real-world projects that position students at the boundary between academic learning and practical application.
+            </div>
+
+            <div class="grid-2">
+                <div class="card-green">
+                    <strong>🔗 Thesis Link</strong>
+                    <p style="margin-top:0.3rem;"><a href="https://hdl.handle.net/10938/35124" target="_blank" style="color:#1a6e4a; text-decoration:underline;">https://hdl.handle.net/10938/35124</a></p>
+                </div>
+                <div class="card-warm">
+                    <strong>🌐 Course Hosted At</strong>
+                    <p style="margin-top:0.3rem;"><a href="https://doable.co.ke/courses/data-science-bootcamp-bridging-the-skills-gap/" target="_blank" style="color:#1a6e4a; text-decoration:underline;">Doable Learning Platform</a></p>
+                </div>
+            </div>
+
+            <div class="card-light">
+                <strong>📊 Outcomes & Impact</strong>
+                <ul style="margin:0.5rem 0 0 1.2rem;">
+                    <li>Scalable, accessible, and industry-aligned training model for aspiring data professionals in Kenya</li>
+                    <li>Seamless, interactive learning environment that removes technical barriers for beginners</li>
+                    <li>Directly supports Kenya's Vision 2030 goals by empowering a new generation of data professionals</li>
+                    <li>Demonstrates the effectiveness of project-based, hands-on learning for bridging the skills gap</li>
+                </ul>
+            </div>
+
+            <div style="margin-top:1.5rem; padding:1rem; background:#f8fafc; border-radius:20px; border:1px solid #e2edf2;">
+                <p style="font-size:0.85rem; color:#3a5b72;"><strong>📖 Citation:</strong> Lemaron, P. (2025). <em>Bridging the Data Science Skills Gap in Kenya Through a Project-Based Online Bootcamp</em> (Master's thesis). American University of Beirut. <a href="https://hdl.handle.net/10938/35124" target="_blank" style="color:#1a6e4a;">https://hdl.handle.net/10938/35124</a></p>
+            </div>
+            <div class="footer-meta">American University of Beirut · Master's Thesis · 2025</div>
+        </div>
+
+        <!-- ===== PAGE 6: SKILLS MATRIX ===== -->
+        <div class="page" data-index="6">
+            <div class="page-header-block">
+                <div class="badge">Skills & Competencies</div>
+                <h2>Mapping Expertise to UNSSC Requirements</h2>
+                <div class="sub">Professionalism · Communication · Creativity · Teamwork · Continuous Learning</div>
+            </div>
+
+            <div style="overflow-x:auto; margin-bottom:1.5rem;">
+                <table style="width:100%; border-collapse:collapse; border-radius:16px; overflow:hidden; border:1px solid #e2edf2; font-size:0.85rem;">
+                    <thead style="background:#0f2b3d; color:white;">
+                        <tr>
+                            <th style="padding:0.6rem 1rem; text-align:left;">UNSSC Competency</th>
+                            <th style="padding:0.6rem 1rem; text-align:left;">Proficiency</th>
+                            <th style="padding:0.6rem 1rem; text-align:left;">Evidence from Projects</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background:#f8fafc;">
+                        <tr><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;"><strong>Professionalism</strong></td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">⭐⭐⭐⭐⭐</td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">Designed 15 laundry modules + 12 PM modules + full data science bootcamp using ADDIE; clear learning objectives and assessments</td></tr>
+                        <tr><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;"><strong>Communication</strong></td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">⭐⭐⭐⭐⭐</td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">Translated complex HR policies, laundry procedures, and data science concepts into clear, engaging content for diverse audiences</td></tr>
+                        <tr><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;"><strong>Creativity</strong></td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">⭐⭐⭐⭐</td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">Custom card layouts, infographics, interactive elements, video production guides, and project-based learning experiences</td></tr>
+                        <tr><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;"><strong>Teamwork</strong></td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">⭐⭐⭐⭐</td><td style="padding:0.6rem 1rem; border-bottom:1px solid #e2edf2;">Collaborated with HR, hospital management, SMEs, and academic supervisors to validate content and gather feedback</td></tr>
+                        <tr><td style="padding:0.6rem 1rem;"><strong>Continuous Learning</strong></td><td style="padding:0.6rem 1rem;">⭐⭐⭐⭐⭐</td><td style="padding:0.6rem 1rem;">Integrated AI tools (NotebookLM) for content refinement; completed Master's degree; researched best practices in adult learning and PBL</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="color:#0f2b3d; border-bottom:2px solid #2b9c6c; padding-bottom:0.4rem;">🛠️ Technical Skills</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin:1rem 0 1.5rem;">
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>Content Authoring:</strong> Articulate Storyline.</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>LMS:</strong> Canvas (Expert), Moodle, Masterstudy</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>HTML5 / CSS3</strong> — inline styles, responsive</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>JavaScript</strong> — interactive quiz, scoring</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>Canva</strong> — graphics, icons, infographics</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>AI Tools</strong> — ChatGPT content research</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>ADDIE</strong> — instructional design framework</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>Project-Based Learning</strong> — design approach</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>Data Tools:</strong> Power BI, Python, SQL</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>Google Colab</strong> — interactive coding</span>
+                <span class="pill" style="padding:0.4rem 1rem;"><strong>GitHub</strong> — version control</span>
+            </div>
+
+            <div class="card-blue">
+                <strong>🔑 Key Strengths:</strong> Learner-centred design · Accessibility · Responsive development · Collaborative teamwork · AI-enhanced content creation · Visual design · Video production planning · Project-Based Learning expertise
+            </div>
+
+            <div class="card-warm">
+                <strong>📚 Education:</strong> M.A. in Computing in Education (GPA: 3.93) · American University of Beirut · MasterCard Foundation Scholar
+            </div>
+            <div class="footer-meta">Paul Lemaron · Instructional Design Portfolio</div>
+        </div>
+
+    </div><!-- /page-container -->
+</div><!-- /portfolio-wrapper -->
+
+<!-- ===== NAVIGATION SCRIPT ===== -->
+<script>
+(function() {
+    const buttons = document.querySelectorAll('#navLinks button');
+    const pages = document.querySelectorAll('.page');
+
+    function showPage(index) {
+        pages.forEach((p, i) => p.classList.toggle('active', i === index));
+        buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+        document.querySelector('.page-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    buttons.forEach((btn, idx) => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage(idx);
+        });
+    });
+
+    window.addEventListener('hashchange', function() {
+        const hash = window.location.hash.replace('#', '');
+        if (hash) {
+            const idx = parseInt(hash, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < pages.length) showPage(idx);
+        }
+    });
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+        const idx = parseInt(hash, 10);
+        if (!isNaN(idx) && idx >= 0 && idx < pages.length) showPage(idx);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        const active = document.querySelector('.page.active');
+        if (!active) return;
+        const idx = parseInt(active.dataset.index, 10);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            if (idx < pages.length - 1) { e.preventDefault(); showPage(idx + 1); }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            if (idx > 0) { e.preventDefault(); showPage(idx - 1); }
+        }
+    });
+})();
+</script>
+
+</body>
+</html>
