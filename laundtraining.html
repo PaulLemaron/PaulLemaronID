@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Laundry Training – Case Study</title>
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #eef2f7;
+            color: #0e3b44;
+            line-height: 1.65;
+            padding: 1.5rem 1rem;
+        }
+        .case-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.18);
+            overflow: hidden;
+            padding: 2.5rem 2.8rem;
+        }
+        @media (max-width: 700px) {
+            .case-wrapper { padding: 1.5rem 1.2rem; }
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #094b55;
+            border-left: 8px solid #2b9c6c;
+            padding-left: 1.2rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .subhead {
+            font-size: 1.2rem;
+            color: #266b73;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 650;
+            color: #094b55;
+            border-bottom: 4px solid #c2e0e4;
+            padding-bottom: 0.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0f2b3d;
+            margin: 1.8rem 0 0.8rem;
+        }
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        ul, ol {
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: #eef9ff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border-left: 8px solid #2b9c6c;
+            margin: 1.5rem 0;
+        }
+        .warning-box {
+            background: #fef9e3;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border-left: 8px solid #e6a017;
+            margin: 1.5rem 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .stat-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e2edf2;
+        }
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2b9c6c;
+        }
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: #3a5b72;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #e2edf2;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #0f2b3d;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 1rem;
+            text-align: left;
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e2edf2;
+        }
+        tr:last-child td { border-bottom: none; }
+
+        .tag {
+            display: inline-block;
+            background: #eef2fa;
+            border-radius: 60px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.75rem;
+            margin: 0.2rem 0.2rem 0 0;
+        }
+        .tag-green { background: #2b9c6c20; color: #1a6e4a; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2.5rem;
+            color: #2b9c6c;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid #2b9c6c;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            transition: 0.15s;
+        }
+        .back-link:hover {
+            background: #2b9c6c;
+            color: white;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            border-top: 2px dotted #cde0e9;
+        }
+
+        .footer-meta {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6f8f9e;
+            margin-top: 2.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #e2edf2;
+        }
+
+        @media print {
+            body { background: white; padding: 0.5rem; }
+            .case-wrapper { border-radius: 0; box-shadow: none; }
+            .back-link { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="case-wrapper">
+
+    <h1>🧺 Hospital Laundry Training Program</h1>
+    <div class="subhead">A Comprehensive Instructional Design Project for Healthcare Laundry Staff</div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stat-card"><div class="number">15</div><div class="label">Modules</div></div>
+        <div class="stat-card"><div class="number">14</div><div class="label">Practical Labs</div></div>
+        <div class="stat-card"><div class="number">1,500+</div><div class="label">Staff Trained</div></div>
+        <div class="stat-card"><div class="number">18</div><div class="label">Video Scripts</div></div>
+    </div>
+
+    <!-- Overview -->
+    <h2>📌 Overview</h2>
+    <p>This project involved the design, development, and implementation of a comprehensive training program for laundry staff at a Hospital, a 300-bed faith-based hospital in Kenya. The program equips all laundry personnel with the knowledge and skills to ensure patient safety through proper linen management—from receiving and segregation through washing, drying, finishing, dispatch, and quality assurance.</p>
+    <p>The training aligns with the hospital's actual laundry workflow and infection control standards, incorporating behaviorist, cognitive, and constructivist strategies through 15 modules and 14 practical labs.</p>
+
+    <div class="highlight-box">
+        <strong>🎯 Primary Goal:</strong> To reduce hospital-acquired infections (HAIs) by ensuring every piece of linen is handled, processed, and stored in a manner that eliminates pathogens and prevents re‑contamination.
+    </div>
+
+    <!-- Challenge -->
+    <h2>🚧 The Challenge</h2>
+    <p>Hospital lacked a standardized training resource for its laundry staff. Existing procedures were informal, leading to:</p>
+    <ul>
+        <li>Inconsistent segregation of linen (Red, Yellow, Blue)</li>
+        <li>Improper handling of infectious materials (aerosolization risk)</li>
+        <li>Lack of knowledge about thermal disinfection thresholds (71°C for 25 minutes)</li>
+        <li>Inadequate chemical safety practices and dosing</li>
+        <li>No structured quality control or documentation</li>
+        <li>Limited training capacity for the 1,500+ staff</li>
+    </ul>
+    <p>Without a comprehensive training program, the hospital risked increased infection rates and compromised patient safety.</p>
+
+    <!-- Solution -->
+    <h2>💡 The Solution</h2>
+    <p>I designed and developed a self‑paced, interactive e‑learning program that serves as the primary training resource for all laundry staff. The program follows the actual laundry workflow and includes:</p>
+    <ul>
+        <li><strong>15 modules</strong> covering the complete linen lifecycle</li>
+        <li><strong>14 practical labs</strong> for hands‑on skill application</li>
+        <li><strong>18 video scripts</strong> with production specifications for visual learning</li>
+        <li><strong>Project‑based assessments</strong> like "From Ward to Ward" trace and "The 90°C Challenge"</li>
+        <li><strong>Mobile‑responsive design</strong> for on‑the‑job reference via Canvas mobile app</li>
+        <li><strong>Knowledge checks</strong> with immediate feedback and 80% passing threshold</li>
+    </ul>
+
+    <!-- Design Process -->
+    <h2>🧠 Instructional Design Process (ADDIE)</h2>
+
+    <h3>Analysis</h3>
+    <ul>
+        <li>Conducted needs analysis with hospital management and laundry supervisors</li>
+        <li>Reviewed existing workflow documents (CTC Laundry Manual)</li>
+        <li>Identified knowledge gaps in segregation, disinfection, and safety</li>
+        <li>Established learning objectives aligned with patient safety outcomes</li>
+    </ul>
+
+    <h3>Design</h3>
+    <ul>
+        <li>Mapped 15 modules to the 7‑phase workflow (Receiving → Dispatch)</li>
+        <li>Developed storyboards for each module with clear learning outcomes</li>
+        <li>Designed 14 practical labs using constructivist scenarios</li>
+        <li>Created visual mockups for mobile‑first responsive design</li>
+        <li>Structured content using cognitive chunking to reduce extraneous load</li>
+    </ul>
+
+    <h3>Development</h3>
+    <ul>
+        <li>Authored all module content in HTML/CSS/JavaScript for Canvas LMS</li>
+        <li>Created custom card layouts, tables, and interactive elements</li>
+        <li>Designed graphics and icons using Canva</li>
+        <li>Wrote 18 video scripts with detailed production guides</li>
+        <li>Developed knowledge checks with immediate feedback and scoring</li>
+    </ul>
+
+    <h3>Implementation</h3>
+    <ul>
+        <li>Deployed all modules in Canvas LMS for easy access and tracking</li>
+        <li>Provided onboarding support to HR and supervisors</li>
+        <li>Enabled mobile access via Canvas Mobile App for just‑in‑time learning</li>
+        <li>Implemented chronological module organization to mirror workflow</li>
+    </ul>
+
+    <h3>Evaluation</h3>
+    <ul>
+        <li>Integrated knowledge checks with auto‑scoring and pass/fail feedback</li>
+        <li>Practical labs observed and signed off by supervisors</li>
+        <li>Final comprehensive assessment with 90% passing threshold</li>
+        <li>Feedback mechanism for continuous improvement</li>
+    </ul>
+
+    <!-- Module Structure -->
+    <h2>📚 Module Structure</h2>
+    <p>The program is organized into 7 phases that follow the actual laundry workflow:</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Phase</th><th>Modules</th><th>Practical Labs</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>1. Receiving</strong></td><td>Segregation, Red Bag Protocol</td><td>Sorting Sprint, Leak Response</td></tr>
+                <tr><td><strong>2. Barrier Washer</strong></td><td>Barrier Washer Operation, Chemical Safety</td><td>Barrier Washer Simulation</td></tr>
+                <tr><td><strong>3. Main Washing</strong></td><td>Washing by Linen Type, Disinfection Science</td><td>The 90°C Challenge</td></tr>
+                <tr><td><strong>4. Drying</strong></td><td>Dryer Programs, Lint Trap Safety</td><td>Lint Trap Audit</td></tr>
+                <tr><td><strong>5. Finishing</strong></td><td>Flat Ironing, Steam Press</td><td>Ironing Techniques</td></tr>
+                <tr><td><strong>6. Dispatch</strong></td><td>Professional Folding, Dispatch & Documentation</td><td>Dispatch Simulation</td></tr>
+                <tr><td><strong>7. Quality</strong></td><td>KPIs, Workplace Safety, Audits</td><td>Final Assessment</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Key Modules -->
+    <h2>🎯 Key Modules</h2>
+
+    <h3>🔴 Lesson 2.1: The Color-Coded Segregation System</h3>
+    <p>Staff learn to categorize linen using the Red (infectious), Yellow (soiled), and Blue (clean) system. Includes table‑based reference and critical "Never Mix" rule.</p>
+
+    <h3>💨 Lesson 2.2: Handling Infectious Linen – The Danger of Shaking</h3>
+    <p>Focuses on aerosolization prevention, double‑bagging, and safe handling of red bag items. Includes real‑world scenario and reporting protocol.</p>
+
+    <h3>🔥 Lesson 3.2: The Science of Disinfection – Thermal Threshold</h3>
+    <p>Covers the 71°C for 25 minutes standard, chemical roles (Ecobrite Power, Turbo Break, Silex 450, Ecobrite Sour), and pH neutralization.</p>
+
+    <h3>🧹 Lesson 14.1: The Maintenance Schedule</h3>
+    <p>Daily and weekly dusting tasks, safe access protocols, and correct tools for cleaning industrial machinery.</p>
+
+    <h3>📋 Lesson 10.3: Quality Control Checklists</h3>
+    <p>Inspection of clean linen for proper temperature, absence of stains/damage, and correct folding/packaging.</p>
+
+    <!-- Practical Labs -->
+    <h2>🧪 Practical Labs</h2>
+    <p>Each lab uses constructivist strategies with real‑world scenarios to build self‑efficacy:</p>
+    <ul>
+        <li><strong>Station 1: PPE Donning and Doffing Precision</strong> – Supervisor‑verified checklist</li>
+        <li><strong>Station 2: Hand Hygiene Simulation</strong> – WHO Five Moments practice</li>
+        <li><strong>Station 3: Hazard Identification Sprint</strong> – Identify risky behaviors</li>
+        <li><strong>Station 4: The Sorting Sprint</strong> – Color‑coded sorting with secure closure</li>
+        <li><strong>Station 5: The Leak Response Scenario</strong> – Double‑bagging and reporting</li>
+        <li><strong>Station 6: The 90°C Challenge</strong> – Set up theatre linen cycle</li>
+        <li><strong>Station 7: Lint Trap Audit</strong> – Clean and inspect with photo evidence</li>
+        <li><strong>Station 8: Dispatch Simulation</strong> – Prepare complete department order</li>
+        <li><strong>…and 6 more</strong></li>
+    </ul>
+
+    <!-- Video Production -->
+    <h2>🎬 Video Production Guide</h2>
+    <p>To support visual learning, I developed 18 video scripts with detailed production specifications:</p>
+    <ul>
+        <li>Total duration: <strong>~85 minutes</strong></li>
+        <li>Each script includes: key shots, duration, script outline, props needed, and filming style</li>
+        <li>Videos cover all critical procedures: segregation, barrier washer, washing cycles, dryer safety, ironing, folding, dispatch, and safety protocols</li>
+        <li>Designed for mobile‑first viewing and closed captioning</li>
+    </ul>
+
+    <div class="warning-box">
+        <strong>🔥 Critical Safety Video:</strong> The <em>Dryer Safety and Lint Trap Cleaning</em> video uses dramatic lighting and slow‑motion to emphasize the fire hazard of built‑up lint.
+    </div>
+
+    <!-- Impact -->
+    <h2>📊 Impact & Outcomes</h2>
+    <ul>
+        <li><strong>1,500+ staff</strong> have access to standardized, self‑paced training</li>
+        <li><strong>14 practical labs</strong> ensure hands‑on competency</li>
+        <li><strong>Mobile‑responsive design</strong> allows just‑in‑time reference in the laundry facility</li>
+        <li><strong>Knowledge checks</strong> with 80% passing threshold ensure mastery</li>
+        <li><strong>Positive feedback</strong> from hospital management: "A comprehensive and engaging resource that has simplified staff training."</li>
+        <li><strong>Reduced infection risk</strong> by reinforcing correct segregation, thermal disinfection, and chemical safety</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>💡 Key Takeaway:</strong> This project demonstrates my ability to analyze a complex workflow, design learner‑centered content, develop interactive and accessible materials, and implement a scalable training solution that directly improves patient safety.
+    </div>
+
+    <!-- Skills & Tools -->
+    <h2>🛠️ Skills & Tools Demonstrated</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;">
+        <span class="tag tag-green">ADDIE Framework</span>
+        <span class="tag">Canvas LMS</span>
+        <span class="tag">HTML5 / CSS3 / JavaScript</span>
+        <span class="tag">Project-Based Learning</span>
+        <span class="tag">Scenario-Based Learning</span>
+        <span class="tag">Canva</span>
+        <span class="tag">Video Scripting</span>
+        <span class="tag">Mobile-First Design</span>
+        <span class="tag">Accessibility (WCAG)</span>
+        <span class="tag">Adult Learning Theory</span>
+    </div>
+
+    <!-- Back to Portfolio -->
+    <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="Paul_Lemaron_ID Portfolio.html" class="back-link" onclick="history.back(); return false;">⬅ Back to Portfolio</a>
+        <span style="margin: 0 1rem; color: #cde0e9;">|</span>
+        <a href="#" onclick="window.print(); return false;" style="color: #2b9c6c; text-decoration: none; font-weight: 500;">⬇ Download PDF</a>
+    </div>
+
+    <hr />
+
+    <div class="footer-meta">
+        Hospital · Laundry Training Program<br>
+        Instructional Design by Paul Lemaron · 2026
+    </div>
+
+</div>
+
+</body>
+</html>
